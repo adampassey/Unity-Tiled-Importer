@@ -27,7 +27,6 @@ namespace Tiled.Builder {
                 .Load(mapJson);
 
             spriteSheet = new SpriteSheet(spriteResource);
-            Debug.Log(spriteSheet.sprites.Length);
 
             CreateTiles(map);
         }
