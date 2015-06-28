@@ -8,10 +8,14 @@ namespace Tiled.Builder {
     [AddComponentMenu("Tiled/MapBuilder")]
     public class MapBuilder : MonoBehaviour {
 
-        public string mapJson;
+        public TextAsset mapJson;
         public Vector2 tileSize;
 
+        public string spriteResource;
+        public GameObject tilePrefab;
+
         private GameObject tileHolder;
+        private SpriteSheet spriteSheet;
 
         void Start() {
 
@@ -21,6 +25,9 @@ namespace Tiled.Builder {
             Map map = new TiledMapLoader(
                 new JSONMapParser())
                 .Load(mapJson);
+
+            spriteSheet = new SpriteSheet(spriteResource);
+            Debug.Log(spriteSheet.sprites.Length);
 
             CreateTiles(map);
         }
@@ -41,21 +48,15 @@ namespace Tiled.Builder {
 
                     if (d != 0) {
 
-                        Debug.Log(map.ObjectReferences[d]);
-
-                        break;
-
-                        GameObject prefab = map.ObjectReferences[d];
-
                         GameObject t = (GameObject)GameObject.Instantiate(
-                            prefab,
+                            tilePrefab,
                             new Vector3(x * tileSize.x, -y * tileSize.y, layer.Height),
                             layer.Rotation);
 
-                        t.name = x + ", " + y + ": " + prefab.name;
+                        t.name = x + ", " + y + ": " + tilePrefab.name;
 
                         SpriteRenderer renderer = t.GetComponent<SpriteRenderer>();
-                        renderer.sortingOrder = Mathf.Abs(y * (int)tileSize.y) + layer.Height;
+                        renderer.sprite = spriteSheet.sprites[d-1];
 
                         t.transform.parent = holder.transform;
                     }

@@ -13,13 +13,12 @@ namespace Tiled {
             parser = mapParser;
         }
 
-        public Map Load(string path) {
-            TextAsset textAsset = (TextAsset)Resources.Load(path);
-            if (textAsset == null) {
-                throw new UnityException("Cannot load map data from path: " + path);
+        public Map Load(TextAsset asset) {
+            if (asset == null) {
+                throw new UnityException("Must set Map data as text asset.");
             }
 
-            return parser.Parse(textAsset.text);
+            return parser.Parse(asset.text);
         }
     }
 }
