@@ -7,8 +7,7 @@
          "opacity":1,
          "properties":
             {
-             "Height":"0",
-             "Rotation-x":"90"
+             "Height":"0"
             },
          "type":"tilelayer",
          "visible":true,

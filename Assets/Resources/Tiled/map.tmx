@@ -12,7 +12,6 @@
  <layer name="Tile Layer 1" width="50" height="50">
   <properties>
    <property name="Height" value="0"/>
-   <property name="Rotation-x" value="90"/>
   </properties>
   <data encoding="base64" compression="zlib">
    eJzt00EVQFAYROFXEQmQAAlogAoU0AAJUMgUwDuOxfudu/j2cxczOecmAADwqTGADXciiT0lAey9kkrmKQ9g79uOWpofdLTSGevoH5qsdFj+RyGlpyqAvQAAAAAAAAAAwN8si3GrbLIbd8jwEyf8trfJ

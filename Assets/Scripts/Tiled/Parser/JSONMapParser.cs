@@ -11,8 +11,8 @@ namespace Tiled.Parser {
 
             JSONNode json = JSON.Parse(text);
 
-            Map map = new Map(CreateReferences(json));
-            map.Layers = CreateLayers(json["layers"]);
+            Map map = new Map(createReferences(json));
+            map.Layers = createLayers(json["layers"]);
 
             map.Height = json["height"].AsInt;
             map.Width = json["width"].AsInt;
@@ -23,7 +23,7 @@ namespace Tiled.Parser {
         //  create all the prefab references required to create
         //  the map. Should be used for creating custom objects
         //  not tiles.
-        private Dictionary<int, GameObject> CreateReferences(JSONNode json) {
+        private Dictionary<int, GameObject> createReferences(JSONNode json) {
 
             Dictionary<int, GameObject> references = new Dictionary<int, GameObject>();
 
@@ -40,8 +40,6 @@ namespace Tiled.Parser {
                         throw new UnityException("Cannot load prefab at: " + prefabPath);
                     }
 
-                    Debug.Log("Adding prefab at: " + node["tileproperties"][i]["ID"].AsInt);
-
                     references.Add(node["tileproperties"][i]["ID"].AsInt + firstgid, prefab);
                 }
             }
@@ -50,7 +48,7 @@ namespace Tiled.Parser {
         }
 
         //  create all layers
-        private List<Layer> CreateLayers(JSONNode json) {
+        private List<Layer> createLayers(JSONNode json) {
 
             List<Layer> layers = new List<Layer>();
 

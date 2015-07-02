@@ -6,6 +6,7 @@ using Tiled.Parser;
 namespace Tiled.Builder {
 
     [AddComponentMenu("Tiled/MapBuilder")]
+    [ExecuteInEditMode]
     public class MapBuilder : MonoBehaviour {
 
         [Tooltip("Exported map as .json")]
@@ -24,7 +25,16 @@ namespace Tiled.Builder {
         private SpriteSheet spriteSheet;
 
         void Start() {
+            initialize();
+        }
 
+        void Update() {
+            if (tileHolder == null) {
+                initialize();
+            }
+        }
+
+        private void initialize() {
             tileHolder = new GameObject();
             tileHolder.name = "Tiles";
 
@@ -34,10 +44,10 @@ namespace Tiled.Builder {
 
             spriteSheet = new SpriteSheet(spriteResource);
 
-            CreateTiles(map);
+            createTiles(map);
         }
 
-        private void CreateTiles(Map map) {
+        private void createTiles(Map map) {
 
             foreach (Layer layer in map.Layers) {
 
@@ -47,7 +57,7 @@ namespace Tiled.Builder {
                 holder.name = layer.Name;
                 holder.transform.parent = tileHolder.transform;
 
-                int x = 0, z = -map.Height;
+                int x = 0, y = -map.Height;
 
                 foreach (int d in layer.Data) {
 
@@ -57,20 +67,19 @@ namespace Tiled.Builder {
 
                         //  set a custom prefab if tile requires one
                         if (map.ObjectReferences.ContainsKey(d)) {
-                            Debug.Log("Getting prefab at: " + d);
                             prefab = map.ObjectReferences[d];
                         }
 
                         GameObject t = (GameObject)GameObject.Instantiate(
                             prefab,
-                            new Vector3(x * tileSize.x, layer.Height , -z * tileSize.y),
+                            new Vector3(x * tileSize.x, -y * tileSize.y, layer.Height),
                             layer.Rotation);
 
-                        t.name = x + ", " + z + ": " + tilePrefab.name;
+                        t.name = x + ", " + y + ": " + tilePrefab.name;
 
                         //  only set the custom tile if using the tile prefab
                         if (prefab == tilePrefab) {
-                            SpriteRenderer renderer = t.GetComponent<SpriteRenderer>();
+                            SpriteRenderer renderer = t.GetComponentInChildren<SpriteRenderer>();
                             if (renderer != null) {
                                 renderer.sprite = spriteSheet.sprites[d - 1];
                             }
@@ -83,7 +92,7 @@ namespace Tiled.Builder {
 
                     if (x >= map.Width) {
                         x = 0;
-                        z++;
+                        y++;
                     }
                 }
             }
