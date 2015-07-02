@@ -53,15 +53,28 @@ namespace Tiled.Builder {
 
                     if (d != 0) {
 
+                        GameObject prefab = tilePrefab;
+
+                        //  set a custom prefab if tile requires one
+                        if (map.ObjectReferences.ContainsKey(d)) {
+                            Debug.Log("Getting prefab at: " + d);
+                            prefab = map.ObjectReferences[d];
+                        }
+
                         GameObject t = (GameObject)GameObject.Instantiate(
-                            tilePrefab,
+                            prefab,
                             new Vector3(x * tileSize.x, layer.Height , -z * tileSize.y),
                             layer.Rotation);
 
                         t.name = x + ", " + z + ": " + tilePrefab.name;
 
-                        SpriteRenderer renderer = t.GetComponent<SpriteRenderer>();
-                        renderer.sprite = spriteSheet.sprites[d-1];
+                        //  only set the custom tile if using the tile prefab
+                        if (prefab == tilePrefab) {
+                            SpriteRenderer renderer = t.GetComponent<SpriteRenderer>();
+                            if (renderer != null) {
+                                renderer.sprite = spriteSheet.sprites[d - 1];
+                            }
+                        }
 
                         t.transform.parent = holder.transform;
                     }

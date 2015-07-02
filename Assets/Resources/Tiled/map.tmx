@@ -2,6 +2,12 @@
 <map version="1.0" orientation="orthogonal" renderorder="left-up" width="50" height="50" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32">
   <image source="../Images/tileset.png" width="512" height="512"/>
+  <tile id="164">
+   <properties>
+    <property name="ID" value="164"/>
+    <property name="Prefab" value="Prefabs/Wood"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Tile Layer 1" width="50" height="50">
   <properties>
@@ -9,7 +15,7 @@
    <property name="Rotation-x" value="90"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt00EVQEAYReGpiARIgAQ0QAUJpgESoJBXwDHHav5xF9/+3cXzzjkPAAB+JZM8UBHB3ielVIHqCPZ+7ehlSKBjlMlYx/zSZKXD8j8aaQN1EewFAAAAAAAAAADhVtmM2+WQ07hLlkTcmMS31g==
+   eJzt00EVQFAYROFXEQmQAAlogAoU0AAJUMgUwDuOxfudu/j2cxczOecmAADwqTGADXciiT0lAey9kkrmKQ9g79uOWpofdLTSGevoH5qsdFj+RyGlpyqAvQAAAAAAAAAAwN8si3GrbLIbd8jwEyf8trfJ
   </data>
  </layer>
 </map>

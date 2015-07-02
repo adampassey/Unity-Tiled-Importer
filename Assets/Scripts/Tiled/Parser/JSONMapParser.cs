@@ -12,11 +12,49 @@ namespace Tiled.Parser {
             JSONNode json = JSON.Parse(text);
 
             Map map = new Map(CreateReferences(json));
+            map.Layers = CreateLayers(json["layers"]);
 
             map.Height = json["height"].AsInt;
             map.Width = json["width"].AsInt;
 
-            foreach (JSONNode layerNode in json["layers"].AsArray) {
+            return map;
+        }
+
+        //  create all the prefab references required to create
+        //  the map. Should be used for creating custom objects
+        //  not tiles.
+        private Dictionary<int, GameObject> CreateReferences(JSONNode json) {
+
+            Dictionary<int, GameObject> references = new Dictionary<int, GameObject>();
+
+            foreach (JSONNode node in json["tilesets"].AsArray) {
+
+                int firstgid = node["firstgid"].AsInt;
+
+                for (int i = 0; i < node["tileproperties"].Count; i++) {
+
+                    string prefabPath = node["tileproperties"][i]["Prefab"].Value;
+                    GameObject prefab = Resources.Load<GameObject>(prefabPath);
+
+                    if (prefab == null) {
+                        throw new UnityException("Cannot load prefab at: " + prefabPath);
+                    }
+
+                    Debug.Log("Adding prefab at: " + node["tileproperties"][i]["ID"].AsInt);
+
+                    references.Add(node["tileproperties"][i]["ID"].AsInt + firstgid, prefab);
+                }
+            }
+
+            return references;
+        }
+
+        //  create all layers
+        private List<Layer> CreateLayers(JSONNode json) {
+
+            List<Layer> layers = new List<Layer>();
+
+            foreach (JSONNode layerNode in json.AsArray) {
                 Layer layer = new Layer();
                 layer.Name = layerNode["name"];
                 layer.Height = layerNode["properties"]["Height"].AsInt;
@@ -41,37 +79,10 @@ namespace Tiled.Parser {
                     layer.Data.Add(dataNode.AsInt);
                 }
 
-                map.Layers.Add(layer);
+                layers.Add(layer);
             }
 
-            return map;
-        }
-
-        //  create all the references required to create the map
-        //  hasn't been tested with multiple tilesets
-        //  https://github.com/bjorn/tiled/issues/605
-        private Dictionary<int, GameObject> CreateReferences(JSONNode json) {
-
-            Dictionary<int, GameObject> references = new Dictionary<int, GameObject>();
-
-            foreach (JSONNode node in json["tilesets"].AsArray) {
-
-                int firstgid = node["firstgid"].AsInt;
-
-                for (int i = 0; i < node["tileproperties"].Count; i++) {
-
-                    string prefabPath = node["tileproperties"][i]["Prefab"].Value;
-                    GameObject prefab = Resources.Load<GameObject>(prefabPath);
-
-                    if (prefab == null) {
-                        throw new UnityException("Cannot load prefab at: " + prefabPath);
-                    }
-
-                    references.Add(i + firstgid, prefab);
-                }
-            }
-
-            return references;
+            return layers;
         }
     }
 }
