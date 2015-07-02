@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 414438}
   - 212: {fileID: 21250330}
-  - 61: {fileID: 6104366}
+  - 65: {fileID: 6561190}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -23,25 +23,24 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143694}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106709}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6104366
-BoxCollider2D:
+--- !u!65 &6561190
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 143694}
-  m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .319999993, y: .319999993}
+  m_Size: {x: .319999993, y: .319999963, z: .100000001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &21250330
 SpriteRenderer:
   m_ObjectHideFlags: 1

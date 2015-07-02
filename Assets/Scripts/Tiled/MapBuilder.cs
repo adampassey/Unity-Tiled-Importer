@@ -8,10 +8,16 @@ namespace Tiled.Builder {
     [AddComponentMenu("Tiled/MapBuilder")]
     public class MapBuilder : MonoBehaviour {
 
+        [Tooltip("Exported map as .json")]
         public TextAsset mapJson;
+
+        [Tooltip("Distance between tiles")]
         public Vector2 tileSize;
 
+        [Tooltip("Path to sprite used to create tiles")]
         public string spriteResource;
+
+        [Tooltip("Prefab used for individual tiles")]
         public GameObject tilePrefab;
 
         private GameObject tileHolder;
@@ -41,7 +47,7 @@ namespace Tiled.Builder {
                 holder.name = layer.Name;
                 holder.transform.parent = tileHolder.transform;
 
-                int x = 0, y = -map.Height;
+                int x = 0, z = -map.Height;
 
                 foreach (int d in layer.Data) {
 
@@ -49,10 +55,10 @@ namespace Tiled.Builder {
 
                         GameObject t = (GameObject)GameObject.Instantiate(
                             tilePrefab,
-                            new Vector3(x * tileSize.x, -y * tileSize.y, layer.Height),
+                            new Vector3(x * tileSize.x, layer.Height , -z * tileSize.y),
                             layer.Rotation);
 
-                        t.name = x + ", " + y + ": " + tilePrefab.name;
+                        t.name = x + ", " + z + ": " + tilePrefab.name;
 
                         SpriteRenderer renderer = t.GetComponent<SpriteRenderer>();
                         renderer.sprite = spriteSheet.sprites[d-1];
@@ -64,7 +70,7 @@ namespace Tiled.Builder {
 
                     if (x >= map.Width) {
                         x = 0;
-                        y++;
+                        z++;
                     }
                 }
             }

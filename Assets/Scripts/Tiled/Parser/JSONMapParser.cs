@@ -21,9 +21,21 @@ namespace Tiled.Parser {
                 layer.Name = layerNode["name"];
                 layer.Height = layerNode["properties"]["Height"].AsInt;
 
-                if (layerNode["properties"]["Rotation"].Value != null) {
-                    layer.Rotation = Quaternion.Euler(new Vector3(0, 0, layerNode["properties"]["Rotation"].AsInt));
+                Vector3 rotation = Vector3.zero;
+
+                if (layerNode["properties"]["Rotation-x"].Value != null) {
+                    rotation.x = layerNode["properties"]["Rotation-x"].AsFloat;
                 }
+
+                if (layerNode["properties"]["Rotation-y"].Value != null) {
+                    rotation.y = layerNode["properties"]["Rotation-y"].AsFloat;
+                }
+
+                if (layerNode["properties"]["Rotation-z"].Value != null) {
+                    rotation.z = layerNode["properties"]["Rotation-z"].AsFloat;
+                }
+
+                layer.Rotation = Quaternion.Euler(rotation);
 
                 foreach (JSONNode dataNode in layerNode["data"].AsArray) {
                     layer.Data.Add(dataNode.AsInt);
