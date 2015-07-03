@@ -23,7 +23,7 @@ Create an empty `GameObject` that will be used as a `MapBuilder`. Attach a `MapB
 * **Tile Prefab** _(GameObject)_: Prefab for each tile.
 
 Unity Tiled Importer will automatically build your map when the scene is built. Staying consistent with the default Unity2d
-settings, the map is built on the `x`, `z` axis, with `y` being reserved for height.
+settings, the map is built on the `x`, `y` axis, with `z` being reserved for height.
 
 ##### Additional Configuration
 
