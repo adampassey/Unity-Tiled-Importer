@@ -37,7 +37,7 @@ namespace Tiled.Builder {
 
         private void initialize() {
             
-            GameObject tileHolder = GameObject.Find(tileHolderName);
+            tileHolder = GameObject.Find(tileHolderName);
 
             if (tileHolder == null) {
                 tileHolder = new GameObject();
