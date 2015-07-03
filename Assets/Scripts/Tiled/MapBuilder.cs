@@ -30,19 +30,19 @@ namespace Tiled.Builder {
         }
 
         void Update() {
-            if (tileHolder == null) {
-                initialize();
-            }
+            initialize();
         }
 
         private void initialize() {
             
             tileHolder = GameObject.Find(tileHolderName);
 
-            if (tileHolder == null) {
-                tileHolder = new GameObject();
-                tileHolder.name = tileHolderName;
+            if (tileHolder != null) {
+                return;
             }
+
+            tileHolder = new GameObject();
+            tileHolder.name = tileHolderName;
 
             Map map = new TiledMapLoader(
                 new JSONMapParser())
