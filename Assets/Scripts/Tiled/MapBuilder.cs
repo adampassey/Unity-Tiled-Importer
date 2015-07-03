@@ -23,6 +23,7 @@ namespace Tiled.Builder {
 
         private GameObject tileHolder;
         private SpriteSheet spriteSheet;
+        private static string tileHolderName = "Tiles";
 
         void Start() {
             initialize();
@@ -35,8 +36,13 @@ namespace Tiled.Builder {
         }
 
         private void initialize() {
-            tileHolder = new GameObject();
-            tileHolder.name = "Tiles";
+            
+            GameObject tileHolder = GameObject.Find(tileHolderName);
+
+            if (tileHolder == null) {
+                tileHolder = new GameObject();
+                tileHolder.name = tileHolderName;
+            }
 
             Map map = new TiledMapLoader(
                 new JSONMapParser())
