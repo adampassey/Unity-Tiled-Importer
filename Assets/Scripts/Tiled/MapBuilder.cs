@@ -37,10 +37,13 @@ namespace Tiled.Builder {
         }
 
         private void initialize() {
-            
-            map = new TiledMapLoader(
-                new JSONMapParser())
-                .Load(mapJson);
+
+            if (map == null) {
+                Debug.Log("Loading map data");
+                map = new TiledMapLoader(
+                    new JSONMapParser())
+                    .Load(mapJson);
+            }
 
             tileHolder = GameObject.Find(tileHolderName);
 
