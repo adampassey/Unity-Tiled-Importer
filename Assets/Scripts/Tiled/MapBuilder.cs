@@ -21,7 +21,7 @@ namespace Tiled.Builder {
         [Tooltip("Prefab used for individual tiles")]
         public GameObject tilePrefab;
 
-        private Map map;
+        public Map map;
         public Map Map { get { return map; } }
 
         private GameObject tileHolder;
@@ -38,6 +38,10 @@ namespace Tiled.Builder {
 
         private void initialize() {
             
+            map = new TiledMapLoader(
+                new JSONMapParser())
+                .Load(mapJson);
+
             tileHolder = GameObject.Find(tileHolderName);
 
             if (tileHolder != null) {
@@ -46,10 +50,6 @@ namespace Tiled.Builder {
 
             tileHolder = new GameObject();
             tileHolder.name = tileHolderName;
-
-            map = new TiledMapLoader(
-                new JSONMapParser())
-                .Load(mapJson);
 
             spriteSheet = new SpriteSheet(spriteResource);
 
