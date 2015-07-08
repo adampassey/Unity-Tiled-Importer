@@ -43,6 +43,8 @@ namespace Tiled.Builder {
                 map = new TiledMapLoader(
                     new JSONMapParser())
                     .Load(mapJson);
+
+                MapContainer.Map = map;
             }
 
             tileHolder = GameObject.Find(tileHolderName);
