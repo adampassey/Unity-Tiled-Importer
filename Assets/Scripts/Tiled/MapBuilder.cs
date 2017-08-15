@@ -99,7 +99,7 @@ namespace Tiled.Builder {
                             }
                         }
 
-                        t.transform.parent = holder.transform;
+                        t.transform.SetParent(holder.transform);
                     }
 
                     x++;
