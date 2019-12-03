@@ -1,6 +1,8 @@
 # Unity Tiled Importer
 [Unity](https://unity3d.com/) Package for importing map data from the [Tiled Map Editor](http://www.mapeditor.org/).
 
+![alt](https://github.com/adampassey/Unity-Tiled-Importer/raw/master/tiled-importer-example.png)
+
 ### Usage
 
 ##### Installation
